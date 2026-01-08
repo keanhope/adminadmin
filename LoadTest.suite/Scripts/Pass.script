@@ -1,0 +1,36 @@
+﻿
+to handle Something_is_prepared
+	BeginTestCase "Something_is_prepared"
+	Log "something is prepared"
+	EndTestCase "Something_is_prepared"
+end Something_is_prepared
+
+to handle something_happens
+	BeginTestCase "something happens"
+	Log "something happens"
+	EndTestCase "something happens"
+end something_happens
+
+to handle Something_is_checked
+	BeginTestCase "Something is checked should fail"
+	LogError "Something is checked should fail"
+	EndTestCase "Something is checked should fail"
+end Something_is_checked
+
+to handle Something_is_about_to_pass
+	BeginTestCase "yay"
+	Log "yay"
+	EndTestCase "yay"
+end Something_is_about_to_pass
+
+to handle time_passes
+	BeginTestCase "2 hours later"
+	Log "2 hours later"
+	EndTestCase "2 hours later"
+end time_passes
+
+to handle something_passed
+	BeginTestCase "Yipee"
+	Log "Yipee"
+	EndTestCase "Yipee"
+end something_passed

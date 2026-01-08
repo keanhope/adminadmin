@@ -1,0 +1,14 @@
+﻿// This script tests the initial state of the SUT. It is necessary to wait for SUT to be initialised before proceeding with any tests
+
+repeat 30 seconds
+	If not(imagefound(imageName:"DesktopBackground", waitFor:0)) then		
+		Logwarning "DesktopBackground isn't found."		
+		wait 10		
+	else		
+		Assert that imageFound("DesktopBackground") is True		
+		Exit Repeat		
+	end if
+end repeat
+Assert that ImageFound("DesktopBackground") is True
+Log "Running snippet in action "
+

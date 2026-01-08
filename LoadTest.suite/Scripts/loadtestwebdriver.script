@@ -1,0 +1,51 @@
+﻿to handle Verify_initial_SUT_state
+
+	// This script tests the initial state of the SUT. It is necessary to wait for SUT to be initialised before proceeding with any tests
+	set maxWait = 3
+	set testresult = false
+	
+	repeat maxWait minute	
+		If not(ImageFound(text:"Script Launch", waitFor:maxWait)) then
+			Logwarning "Script Launch isn't found."
+		else	
+			Assert that imageFound(text:"Script Launch", waitFor:maxWait) is True		
+			Exit Repeat
+		end if
+	end repeat
+	Assert that ImageFound(text:"Script Launch", waitFor:maxWait) is True
+	set testresult = true
+	log "testresult:" && testresult
+	return testresult
+end Verify_initial_SUT_state
+
+to handle Launch_Browser
+	//This script launches a Firefox browser
+	set browserType =  "chrome"
+	set maxWait= 3
+	log "browserType:" && browserType
+	set testresult = false
+	WebConnect browser: "chrome"
+	set the WebDriver's windowsize to "max"
+	repeat maxWait minute
+		If imagefound(text: "New Tab", waitFor:maxWait) then
+			set browserText to "New Tab"
+			Exit Repeat
+		else if imagefound(text: "newtab", waitFor:maxWait) then
+			set browserText to "newtab"
+			Exit Repeat
+		else if imagefound(text: "data", waitFor:maxWait) then
+			set browserText to "data"
+			Exit Repeat
+		end if
+	end repeat
+	
+	Assert that ImageFound(text:browserText, waitFor:maxWait) is True
+	//Assert that imageFound(browserimage) is True
+	set testresult = true
+	log "testresult:" && testresult
+	return testresult
+end Launch_Browser
+
+to handle close_browser
+	WebDisconnect all
+end close_browser

@@ -1,0 +1,24 @@
+﻿to open_browser
+	WebConnect browser:"chrome", url:"https://dai-qa.dai.webperfdev.com"
+	set the WebDriver's windowsize to "max"
+end open_browser
+
+to detect_account
+	repeat 5 times
+		if lastlocation is ImageLocation(text:"account",waitfor:0.5) then
+			Exit repeat
+		end if
+		set lastlocation to ImageLocation(text:"account",waitfor:0.5)
+		wait 1
+	end repeat
+end detect_account
+
+to copy_account
+	DoubleClick text:"account"
+	typetext controlkey, "c" --copy
+	
+	log "clipboard:" &&  remoteclipboard() --log the contents of the clipboard
+	Assert that remoteclipboard() is "account"
+	
+	WebDisconnect all
+end copy_account

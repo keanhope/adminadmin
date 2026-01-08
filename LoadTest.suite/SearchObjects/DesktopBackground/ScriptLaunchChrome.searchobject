@@ -1,0 +1,41 @@
+{
+	"lastmodifieddate": 1747119450.155,
+	"ocrcapturestring": "Script Launch Chrome",
+	"originalcapturelocation": [
+		647,
+		475,
+		451,
+		42
+	],
+	"createddate": 1747119450.155,
+	"testlocationdata": [
+		{
+				"connectionportnum": 51419,
+				"properties": {
+					"CropRectangle": "[0,0,0,0]",
+					"Rotate": 0,
+					"Tolerance": "_51",
+					"HotSpot": "[225,21]",
+					"Scale": "    1",
+					"Discrepancy": "_0",
+					"SearchType": "Smoothed for Text"
+				},
+				"sutinfo": {
+					"Type": "RDP"
+				},
+				"name": "DesktopBackground/ScriptLaunchChrome.png",
+				"connectionname": "hped800g4",
+				"type": 1,
+				"connectionserverid": "hped800g4",
+				"capturerect": [
+					647,
+					475,
+					451,
+					42
+				],
+				"connectiontype": "RDP",
+				"capturedocrtext": "Script Launch Chrome"
+			}
+	],
+	"name": "DesktopBackground/ScriptLaunchChrome"
+}

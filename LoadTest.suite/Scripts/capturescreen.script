@@ -1,0 +1,39 @@
+﻿to handle Clear_Browser
+	WebDisconnect all
+end Clear_Browser
+
+to handle Launch_Browser
+	//This script launches a Firefox browser
+	set browserType = Chrome
+	set maxWait= 3
+	log "browserType:" && browserType
+	set testresult = false
+	WebConnect browser: "chrome"
+	set the WebDriver's windowsize to "max"
+	CaptureScreen {Name: "browser"}
+	set browserText = "newtab"
+	set browserText1 = "New Tab"
+	set browserText2 = "data"
+	repeat maxWait minute
+		If imagefound(text: browserText, waitFor:3) then
+			set browserText to browserText
+			Exit Repeat
+		else if imagefound(text: browserText1, waitFor:3) then
+			set browserText to browserText1
+			Exit Repeat
+		else if imagefound(text: browserText2, waitFor:3) then
+			set browserText to browserText2
+			Exit Repeat	
+		end if
+	end repeat
+	
+	Assert that ImageFound(text: browserText, waitFor:maxWait) is True
+	//Assert that imageFound(browserimage) is True
+	set testresult = true
+	log "testresult:" && testresult
+	return testresult
+end Launch_Browser
+
+to handle close_browser
+	WebDisconnect all
+end close_browser

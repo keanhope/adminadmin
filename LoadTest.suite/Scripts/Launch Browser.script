@@ -1,0 +1,55 @@
+﻿//This script launches a Firefox browser
+params browserType:"chrome", maxWait:5
+log "browserType:" && browserType
+set testresult = false
+
+repeat maxWait minute
+	TypeText AltKey, F2
+	If not(imagefound(imageName:"AppFinder", waitFor:0)) then		
+		Logwarning "ApplicationFinderx isn't found."		
+		wait 5		
+	else		
+		Assert that imageFound("AppFinder")		
+		Exit Repeat
+	end if
+end repeat
+if lowercase(browserType)="chrome" then
+	TypeText "google-chrome"
+	set browserText = "newtab"
+	set browserText1 = "New Tab"
+	set browserText2 = "data"
+else if lowercase(browserType)="firefox" then	
+	TypeText "firefox"
+	set browserText = "Firefox"
+else 
+	set browserText = "newtab"
+end if
+
+TypeText return
+repeat maxWait minute
+	
+	If imagefound(text: browserText, waitFor:3) then
+		set browserText to browserText
+		Exit Repeat
+	else if imagefound(text: browserText1, waitFor:3) then
+		set browserText to browserText1
+		Exit Repeat
+	else if imagefound(text: browserText2, waitFor:3) then
+		set browserText to browserText2
+		Exit Repeat		
+	else		
+		Assert that imageFound(text:browserText) is True
+		Exit Repeat		
+	end if
+end repeat
+
+Assert that ImageFound(text:browserText) is True
+//Assert that imageFound(browserimage) is True
+set testresult = true
+log "testresult:" && testresult
+return testresult
+
+
+
+
+

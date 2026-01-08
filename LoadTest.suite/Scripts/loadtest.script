@@ -1,0 +1,82 @@
+﻿to handle Verify_initial_SUT_state
+
+	// This script tests the initial state of the SUT. It is necessary to wait for SUT to be initialised before proceeding with any tests
+	set maxWait = 10
+	set testresult = false
+	
+	repeat maxWait minute	
+		If not(imagefound(imageName:"DesktopBackground", waitFor:maxWait)) then		
+			Logwarning "DesktopBackground isn't found."
+			else	
+			Assert that imageFound(imageName:"DesktopBackground", waitFor:maxWait) is True		
+			Exit Repeat
+		end if
+	end repeat
+	
+	Assert that ImageFound(imageName:"DesktopBackground", waitFor:maxWait) is True
+	set testresult = true
+	log "testresult:" && testresult
+	return testresult
+end Verify_initial_SUT_state
+
+to handle Launch_Browser
+	//This script launches a Firefox browser
+	set browserType = Chrome
+	set maxWait= 10
+	log "browserType:" && browserType
+	set testresult = false
+	TypeText AltKey, F2
+	
+	repeat maxWait minute	
+		If not(imagefound(imageName:"AppFinder", waitFor:maxWait)) then
+			Logwarning "ApplicationFinderx isn't found."
+		else		
+			Assert that imageFound(imageName:"AppFinder", waitFor:maxWait)
+			Exit Repeat
+		end if
+	end repeat
+	if lowercase(browserType)="chrome" then
+		TypeText "google-chrome"
+		set browserimage = "AddressBarInput/Chrome"
+		set browserText = "newtab"
+		set browserText1 = "New Tab"
+		set browserText2 = "data"
+	else if lowercase(browserType)="firefox" then
+		TypeText "firefox"
+		set browserimage = "AddressBarInput/Firefox"
+		set browserText = "Firefox"
+	else
+		set browserimage = "AddressBarInput/Firefox"
+		set browserText = "New Tab"
+	end if
+	
+	TypeText return
+	repeat maxWait minute
+		
+		If imagefound(text: browserText, waitFor:3) then
+			set browserText to browserText
+			Exit Repeat
+		else if imagefound(text: browserText1, waitFor:3) then
+			set browserText to browserText1
+			Exit Repeat
+		else if imagefound(text: browserText2, waitFor:3) then
+			set browserText to browserText2
+			Exit Repeat		
+		else
+			Assert that imageFound(text:browserText, waitFor:maxWait) is True
+			Exit Repeat
+		end if
+	end repeat
+	
+	Assert that ImageFound(text:browserText, waitFor:maxWait) is True
+	//Assert that imageFound(browserimage) is True
+	set testresult = true
+	log "testresult:" && testresult
+	return testresult
+end Launch_Browser
+
+to handle close_browser
+	TypeText altKey, F4
+	TypeText returnKey
+	TypeText altKey, "w"
+end close_browser

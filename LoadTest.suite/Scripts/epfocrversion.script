@@ -1,0 +1,20 @@
+﻿to get_epf_version
+
+	log "EPF version: "&version()
+	
+end get_epf_version
+
+to get_ocr_version
+
+	log "EPF OCR version: "&ocrversion()
+	
+end get_ocr_version
+
+to get_chrome_version
+
+	WebConnect browser:"chrome"
+	put WebDriver()'s capabilities into browser_capabilities
+	log "Chrome version: "&browser_capabilities.browserVersion
+	
+end get_chrome_version
+
